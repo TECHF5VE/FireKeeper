@@ -1,4 +1,4 @@
-import { Controller, Put, Body } from '@nestjs/common';
+import { Controller, Put, Body, Get } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { Resp, success } from '../types/resp';
@@ -15,6 +15,16 @@ export class NewsController {
       return await success(res);
     } else {
       return await fail('create fail');
+    }
+  }
+
+  @Get('list')
+  async showNews(): Promise<Resp<News[]>> {
+    const res = await this.newsService.listNews();
+    if (res) {
+      return await success(res);
+    } else {
+      return await fail('list fail');
     }
   }
 }
