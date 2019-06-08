@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { News } from './news.entity';
 import { CreateNewsDto } from './dto/create-news.dto';
-import { KE_API, genReqHeader, SA_API } from '../utils/constant';
+import { genReqHeader, KE_API, SA_API } from '../utils/constant';
 import { isArray } from 'util';
 
 @Injectable()
@@ -28,6 +28,15 @@ export class NewsService {
         { text: news.content },
         {
           headers: genReqHeader(),
+          transformRequest: data => {
+            let ret = '';
+            // tslint:disable-next-line: forin
+            for (const i in data) {
+              ret +=
+                encodeURIComponent(i) + '=' + encodeURIComponent(data[i]) + '&';
+            }
+            return ret;
+          },
         },
       )
       .toPromise()
@@ -38,6 +47,15 @@ export class NewsService {
         { text: news.content },
         {
           headers: genReqHeader(),
+          transformRequest: data => {
+            let ret = '';
+            // tslint:disable-next-line: forin
+            for (const i in data) {
+              ret +=
+                encodeURIComponent(i) + '=' + encodeURIComponent(data[i]) + '&';
+            }
+            return ret;
+          },
         },
       )
       .toPromise()
@@ -45,14 +63,15 @@ export class NewsService {
     Logger.log(keRes);
     Logger.log(saRes);
     if (keRes.data && keRes.data.ke) {
-      const ke = keRes.data.ke;
+      let ke = keRes.data.ke;
       if (isArray(ke)) {
+        ke = ke.slice(0, 5);
         news.keywords = ke.map(item => item.word).join(',');
       }
     }
     if (saRes.data && saRes.data.sa) {
       const sa = saRes.data.sa;
-      news.sentiment = sa.sentiment;
+      news.sentiment = sa[0].sentiment;
     }
     return await this.newsRepository.save(news);
   }
