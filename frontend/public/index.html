@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+  <title>FireKeeper</title>
+</head>
+<body>
+  <div id="root">
+    <noscript> 必须启用JavaScript才能浏览此网站</noscript>
+    <script>
+      if (!!window.ActiveXObject || "ActiveXObject" in window) {
+        var isIETipContent =
+          '<h3>使用IE浏览器浏览本页面会导致网站几乎所有功能瘫痪,请务必升级至<a href="https://www.google.cn/chrome/">现代浏览器</a>再来访问本页面</h3>';
+        document.getElementById("root").innerHTML = isIETipContent;
+      }
+    </script>
+  </div>
+</body>
+
+</html>
