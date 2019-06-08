@@ -1,0 +1,41 @@
+.add-button {
+  transition: .3s;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  font-size: 36px;
+  background: $color-primary;
+  border-color: $color-primary;
+
+  &.open {
+    @media (max-width:600px) {
+      opacity: .6;
+    }
+
+    @media (min-width:601px) {
+      right: $pc-sider-width+20px;
+    }
+  }
+}
+
+.location-button {
+  transition: .3s;
+  position: absolute;
+  right: 25px;
+  bottom: 90px;
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+
+  &.open {
+    @media (max-width:600px) {
+      opacity: .8;
+    }
+
+    @media (min-width:601px) {
+      right: $pc-sider-width+25px;
+    }
+  }
+}
