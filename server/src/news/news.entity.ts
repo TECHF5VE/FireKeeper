@@ -20,8 +20,17 @@ export class News {
   @Column('text')
   sentiment: string;
 
-  @Column('float')
+  @Column({
+    name: 'weight',
+    default: 1,
+  })
   weight: number;
+
+  @Column({
+    name: 'star',
+    default: 0,
+  })
+  star: number;
 
   @Column({
     type: 'timestamp',

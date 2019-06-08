@@ -1,9 +1,10 @@
-import { Controller, Put, Body, Get } from '@nestjs/common';
+import { Controller, Put, Body, Get, Param } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { Resp, success } from '../types/resp';
 import { News } from './news.entity';
 import { EventsGateway } from '../events/events.gateway';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @Controller('news')
 export class NewsController {
@@ -29,6 +30,26 @@ export class NewsController {
       return await success(res);
     } else {
       return await fail('list fail');
+    }
+  }
+
+  @Get('like/:id')
+  async likeNews(@Param('id') id: string | number): Promise<Resp<News>> {
+    const res = await this.newsService.likeNews(id);
+    if (res) {
+      return await success(res);
+    } else {
+      return await fail('like fail');
+    }
+  }
+
+  @Get('dislike/:id')
+  async disLikeNews(@Param('id') id: string | number): Promise<Resp<News>> {
+    const res = await this.newsService.disLikeNews(id);
+    if (res) {
+      return await success(res);
+    } else {
+      return await fail('dislike fail');
     }
   }
 }
