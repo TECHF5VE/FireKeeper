@@ -23,9 +23,14 @@ export class News {
   @Column('float')
   weight: number;
 
-  @Column('timestamp')
+  @Column({
+    type: 'timestamp',
+  })
   createdAt: Date;
 
-  @Column('timestamp')
+  @Column({
+    type: 'timestamp',
+    nullable: true,
+  })
   dismissAt: Date;
 }

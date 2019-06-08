@@ -8,6 +8,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { NewsModule } from './news/news.module';
 
 @Module({
   imports: [
@@ -20,8 +21,10 @@ import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
       database: 'fire',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
+      logging: true,
     }),
     CacheModule.register(),
+    NewsModule,
   ],
   controllers: [AppController],
   providers: [
