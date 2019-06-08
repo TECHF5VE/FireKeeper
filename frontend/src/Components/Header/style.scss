@@ -16,4 +16,11 @@
   .fire {
     color: $color-primary;
   }
+
+  .switch-link {
+    position: absolute;
+    right: 10px;
+    font-size: 24px;
+    border-color: rgba($color-primary, .7);
+  }
 }
