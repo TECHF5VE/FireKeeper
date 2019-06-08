@@ -1,8 +1,10 @@
-import { Injectable, HttpService } from '@nestjs/common';
+import { Injectable, HttpService, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { News } from './news.entity';
 import { CreateNewsDto } from './dto/create-news.dto';
+import { KE_API, genReqHeader, SA_API } from '../utils/constant';
+import { isArray } from 'util';
 
 @Injectable()
 export class NewsService {
@@ -17,10 +19,41 @@ export class NewsService {
     const now = new Date();
     news.createdAt = now;
     news.dismissAt = new Date(now.getTime() + 5 * 60 * 1000);
+    news.weight = 1;
     news.keywords = '';
     news.sentiment = '';
-    news.weight = 1;
-    // TODO:
+    const keRes = await this.httpService
+      .post(
+        KE_API,
+        { text: news.content },
+        {
+          headers: genReqHeader(),
+        },
+      )
+      .toPromise()
+      .then(res => res.data);
+    const saRes = await this.httpService
+      .post(
+        SA_API,
+        { text: news.content },
+        {
+          headers: genReqHeader(),
+        },
+      )
+      .toPromise()
+      .then(res => res.data);
+    Logger.log(keRes);
+    Logger.log(saRes);
+    if (keRes.data && keRes.data.ke) {
+      const ke = keRes.data.ke;
+      if (isArray(ke)) {
+        news.keywords = ke.map(item => item.word).join(',');
+      }
+    }
+    if (saRes.data && saRes.data.sa) {
+      const sa = saRes.data.sa;
+      news.sentiment = sa.sentiment;
+    }
     return await this.newsRepository.save(news);
   }
 
