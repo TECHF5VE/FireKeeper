@@ -12,9 +12,10 @@ export const genReqHeader = () => {
   const param = 'eyJ0eXBlIjoiZGVwZW5kZW50In0=';
   const res =  {
     'X-Appid': APP_ID,
-    'X-CurTime': utc,
+    'X-CurTime': utc.toString(),
     'X-Param': param,
     'X-CheckSum': MD5(API_KEY + utc + param).toString(),
+    'Content-Type': 'application/x-www-form-urlencoded',
   };
   Logger.log(res);
   return res;

@@ -33,4 +33,7 @@ export class News {
     nullable: true,
   })
   dismissAt: Date;
+
+  @Column()
+  sent: boolean;
 }
