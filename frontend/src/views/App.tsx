@@ -5,17 +5,18 @@ import './base.scss';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import IEWarning from './IEWarning';
 import Home from './Home';
+import FireProvider from './FireProvider';
 
 export default function App() {
   return (
     <LocaleProvider locale={zh_CN}>
       <BrowserRouter>
-        <div>
+        <FireProvider>
           <IEWarning />
           <Switch>
             <Route component={Home} />
           </Switch>
-        </div>
+        </FireProvider>
       </BrowserRouter>
     </LocaleProvider>
   )

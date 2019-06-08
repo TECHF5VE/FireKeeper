@@ -20,7 +20,8 @@
   .switch-link {
     position: absolute;
     right: 10px;
-    font-size: 24px;
+    font-size: 22px !important;
     border-color: rgba($color-primary, .7);
+    color: $color-primary !important;
   }
 }

@@ -1,20 +1,27 @@
 import * as React from 'react';
 import * as style from './style.scss';
 import { Icon, Button } from 'antd';
+import { IFire, FireDataContext } from 'src/context/fire';
 
-export default function NewsItem() {
+export default function NewsItem({ fire, setToCenter }: { fire: IFire, setToCenter: (position: string) => void }) {
+  const fireContext = React.useContext(FireDataContext);
+  const handleLikeClick = () => { fireContext && fireContext.functions.likeFire(fire.id) }
+  const handleDislikeClick = () => { fireContext && fireContext.functions.dislikeFire(fire.id) }
   return (
-    <div className={style.newsItem}>
+    <div className={style.newsItem} onClick={() => {
+      setToCenter(fire.position);
+      fireContext && fireContext.functions.setSelectedId(fire.id)
+    }}>
       <div className={style.fireStatus}>
         <div className={style.fireStatusIcon}><Icon type="fire" /></div>
-        99°C 半小时前
+        {fire.weight}°C {fire.sentiment}
       </div>
-      <div className={style.fireContent}>我是内容我是内容我是内容，我是内容我是内容我是内容，我是内容我是内容我是内容。</div>
+      <div className={style.fireContent}>{fire.content}</div>
       <div className={style.fireActions}>
-        <Button className={style.addFire} shape="circle" size="large">
+        <Button className={style.addFire} shape="circle" size="large" onClick={handleLikeClick}>
           <Icon component={addFireIcon} />
         </Button>
-        <Button className={style.cancelFire} shape="circle" size="large">
+        <Button className={style.cancelFire} shape="circle" size="large" onClick={handleDislikeClick}>
           <Icon component={cancelFireIcon} />
         </Button>
       </div>
