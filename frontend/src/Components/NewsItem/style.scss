@@ -1,0 +1,70 @@
+.news-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: $card-shadow;
+  padding: 10px;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  background: #fff;
+  transition: .3s;
+
+  &:hover {
+    box-shadow: $card-shadow-raised;
+  }
+
+  .fire-status {
+    position: absolute;
+    top: -20px;
+    height: 30px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    padding: 0 10px 0 50px;
+
+    .fire-status-icon {
+      position: absolute;
+      background: $color-primary;
+      color: white;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 18px;
+      left: 0;
+    }
+  }
+
+  .fire-content {
+    font-size: 18px;
+    padding: 10px 0 50px;
+  }
+
+  .fire-actions {
+    position: absolute;
+    bottom: 10px;
+
+    :global {
+      .ant-btn {
+        font-size: 20px;
+      }
+    }
+
+    .add-fire {
+      background: rgba($color-primary, .9);
+      border-color: $color-primary;
+    }
+
+    .cancel-fire {
+      margin-left: 20px;
+      background: rgba($color-cancel-fire, .9);
+      border-color: $color-cancel-fire;
+    }
+  }
+}

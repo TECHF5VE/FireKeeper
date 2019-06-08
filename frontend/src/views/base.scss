@@ -7,17 +7,43 @@
   overflow: hidden;
 }
 
-pre{
+:global {
+
+  ::-webkit-scrollbar {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    height: 8px;
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #c5c5c5;
+    border-radius: 4px;
+    min-height: 20px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba($color-primary, .8);
+    min-height: 30px;
+  }
+
+  ::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+
+pre {
   margin: 10px 10px 10px 0;
   background: #eee;
   padding: 10px;
-  code{
+
+  code {
     padding: 0;
     margin: 0;
   }
 }
 
-code{
+code {
   background: #eee;
   padding: 2px 3px;
   margin: 0 3px;
