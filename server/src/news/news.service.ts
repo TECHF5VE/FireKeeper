@@ -84,7 +84,7 @@ export class NewsService {
       const sa = saRes.data.sa;
       news.sentiment = sa[0].sentiment;
     }
-    this.updateNews();
+    await this.updateNews();
     return await this.newsRepository.save(news);
   }
 
@@ -119,21 +119,21 @@ export class NewsService {
     });
     // 计算词的出现频率
     const map: Map<string, number> = new Map();
-    for (let i = 0, len = latestKeys[0].length; i < len; i++) {
+    for (let i = 0; i < latestKeys[1]; i++) {
       const item = latestKeys[0][i];
-      if (map[item.name]) {
-        map[item.name] += 1;
+      if (map.get(item.name) !== undefined) {
+        map.set(item.name, map.get(item.name) + 1);
       } else {
-        map[item.name] = 1;
+        map.set(item.name, 1);
       }
     }
     const weights = [];
     // tslint:disable-next-line: forin
-    for (const k in map.keys()) {
-      const value = map[k];
+    for (const [key, value] of map) {
       // 每个词的词频
-      weights.push({ weight: value / latestKeys[1], name: k });
+      weights.push({ weight: value / latestKeys[1], name: key });
     }
+    console.log(weights);
 
     // 批量更新 News 权重和消失时间
     news.forEach(v => {
@@ -143,8 +143,9 @@ export class NewsService {
         }
       });
     });
+    console.log(news);
 
-    this.newsRepository.save(news);
+    await this.newsRepository.save(news);
   }
 
   // findTopF5veKeys(
