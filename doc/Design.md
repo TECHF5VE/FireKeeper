@@ -47,7 +47,8 @@
     "position": "xx,xx",
     "keywords": "",
     "sentiment": "",
-    "weight": 1
+    "weight": 1,
+    "star": 0
   }
 }
 ```
@@ -74,8 +75,54 @@
       "position": "xx,xx",
       "keywords": "",
       "sentiment": "",
-      "weight": 1
+      "weight": 1,
+      "star": 0
     }
   ]
+}
+```
+
+## 点赞
+### 请求
+```
+[GET] /api/news/like/:id
+```
+### 响应
+```json
+{
+  "success": true,
+  "msg": "success",
+  "data": {
+    "id": 1,
+    "image": "https://xxx",
+    "content": "news content",
+    "position": "xx,xx",
+    "keywords": "",
+    "sentiment": "",
+    "weight": 1,
+    "star": 2
+  }
+}
+```
+
+## 踩
+```
+[GET] /api/news/dislike/:id
+```
+### 响应
+```json
+{
+  "success": true,
+  "msg": "success",
+  "data": {
+    "id": 1,
+    "image": "https://xxx",
+    "content": "news content",
+    "position": "xx,xx",
+    "keywords": "",
+    "sentiment": "",
+    "weight": 1,
+    "star": 1
+  }
 }
 ```
