@@ -20,7 +20,7 @@ import {
       password: 'root',
       database: 'fire',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      // synchronize: true,
       logging: true,
     }),
     CacheModule.register(),
