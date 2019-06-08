@@ -1,14 +1,14 @@
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { NewsModule } from './news/news.module';
 import {
   CacheModule,
   Module,
   CacheInterceptor,
   ValidationPipe,
 } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
-import { NewsModule } from './news/news.module';
 
 @Module({
   imports: [

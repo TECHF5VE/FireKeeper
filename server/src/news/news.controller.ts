@@ -3,10 +3,14 @@ import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { Resp, success } from '../types/resp';
 import { News } from './news.entity';
+import { EventsGateway } from '../events/events.gateway';
 
 @Controller('news')
 export class NewsController {
-  constructor(private readonly newsService: NewsService) {}
+  constructor(
+    private readonly newsService: NewsService,
+    private readonly eventsGateway: EventsGateway,
+  ) {}
 
   @Put()
   async createNews(@Body() newsDto: CreateNewsDto): Promise<Resp<News>> {
