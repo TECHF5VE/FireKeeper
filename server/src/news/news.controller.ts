@@ -4,7 +4,6 @@ import { CreateNewsDto } from './dto/create-news.dto';
 import { Resp, success } from '../types/resp';
 import { News } from './news.entity';
 import { EventsGateway } from '../events/events.gateway';
-import { async } from 'rxjs/internal/scheduler/async';
 
 @Controller('news')
 export class NewsController {
