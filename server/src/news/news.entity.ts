@@ -1,4 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import * as moment from 'moment';
+import { Transform, Expose } from 'class-transformer';
 
 @Entity()
 export class News {
@@ -32,11 +34,13 @@ export class News {
   })
   star: number;
 
+  @Transform(date => moment(date).format('YYYY-MM-DD HH:mm:ss'))
   @Column({
     type: 'timestamp',
   })
   createdAt: Date;
 
+  @Transform(date => moment(date).format('YYYY-MM-DD HH:mm:ss'))
   @Column({
     type: 'timestamp',
     nullable: true,
@@ -45,4 +49,14 @@ export class News {
 
   @Column()
   sent: boolean;
+
+  @Expose()
+  createdAtFormat: string;
+
+  @Expose()
+  dismissAtFormat: string;
+
+  constructor(partial: Partial<News>) {
+    Object.assign(this, partial);
+  }
 }

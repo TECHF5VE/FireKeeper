@@ -5,6 +5,7 @@ import * as helmet from 'helmet';
 import * as compression from 'compression';
 import * as rateLimit from 'express-rate-limit';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   // const app = await NestFactory.create(AppModule, { cors: true });
@@ -15,6 +16,7 @@ async function bootstrap() {
       maxAge: 3600,
     },
   });
+  app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('/api');
   app.use(helmet());
   // app.use(csurf());
