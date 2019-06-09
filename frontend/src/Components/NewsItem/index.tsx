@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as style from './style.scss';
 import { Icon, Button } from 'antd';
-import { IFire, FireDataContext } from 'src/context/fire';
+import { IFire, FireDataContext } from '../../context/fire';
 import * as moment from 'moment';
 import classnames from 'classnames';
 
