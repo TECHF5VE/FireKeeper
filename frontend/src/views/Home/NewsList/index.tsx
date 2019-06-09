@@ -9,9 +9,9 @@ export default function NewsList({ setToCenter }: { setToCenter: (position: stri
   return (
     <div className={classnames(style.newsList, { [style.close]: fire && !fire.data.listOpen })}>
       <div className={style.newsListContent}>
-        {fire && fire.data.fires.map((v) => {
+        {fire && fire.data.fires.map((v) => (
           <NewsItem fire={v} key={v.id} setToCenter={setToCenter} />
-        })}
+        ))}
       </div>
     </div>
   )

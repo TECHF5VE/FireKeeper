@@ -25,12 +25,13 @@
     justify-content: center;
     align-items: center;
     background: #fff;
-    padding: 0 10px 0 50px;
+    padding: 0 10px 0 60px;
+    color: #000;
 
     .fire-status-icon {
       position: absolute;
-      background: rgba($color-primary, .2);
-      color: white;
+      background: rgba($color-hot-3, .2);
+      color: $color-hot-3;
       width: 30px;
       height: 30px;
       line-height: 30px;
@@ -38,6 +39,59 @@
       text-align: center;
       font-size: 18px;
       left: 0;
+
+      &.hot-1 {
+        color: $color-hot-1;
+        background: rgba($color-hot-1, .2);
+      }
+
+      &.hot-2 {
+        color: $color-hot-2;
+        background: rgba($color-hot-2, .2);
+      }
+
+      &.hot-4 {
+        color: $color-hot-4;
+        background: rgba($color-hot-4, .2);
+      }
+
+      &.hot-5 {
+        color: $color-hot-5;
+        background: rgba($color-hot-5, .2);
+      }
+    }
+
+    .sentiment-icon {
+      position: absolute;
+      color: $color-normal;
+      background: rgba($color-normal, .2);
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 22px;
+      left: 25px;
+      padding-top: 2px;
+
+      &.happy {
+        color: $color-happy;
+        background: rgba($color-happy, .2);
+      }
+
+      &.sad {
+        color: $color-sad;
+        background: rgba($color-sad, .2);
+      }
+    }
+
+    .hot-status {
+      font-size: 16px;
+    }
+
+    .time {
+      padding-left: 5px;
+      opacity: .9;
     }
   }
 

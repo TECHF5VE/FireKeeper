@@ -18,6 +18,9 @@ export default function Home() {
     setLocationing(false);
     fire && fire.functions.getFires(`${e.position.lng},${e.position.lat}`)
   }
+  React.useEffect(() => {
+    fire && fire.functions.getFires(`,`)
+  }, [])
   const amapEvents = {
     created: (mapObj) => {
       mapObj.plugin('AMap.Geolocation', () => {
@@ -49,21 +52,16 @@ export default function Home() {
   }
   const setToCenter = (position: string) => {
     const [lng, lat] = position.split(",");
-    amapObj && amapObj.current.setZoomAndCenter(17, window.AMap.LngLat(lng, lat, true));
+    amapObj && amapObj.current.setZoomAndCenter(17, new window.AMap.LngLat(lng, lat, true));
   }
-  const randomMarker = (len) => (
-    Array(len).fill(true).map((e, idx) => ({
-      position: {
-        longitude: 100 + Math.random() * 30,
-        latitude: 30 + Math.random() * 20,
-      },
-      myIndex: idx + 1,
-    }))
-  );
-  const markers = randomMarker(10);
-  const renderMarkerLayout = (extData) => {
-    return <div style={style}>{extData.myLabel}</div>
-  }
+  const markers = fire && fire.data.fires.map((v) => ({
+    position: {
+      longitude: v.position.split(",")[0],
+      latitude: v.position.split(",")[1],
+    },
+    id: v.id,
+    weight: v.weight,
+  }));
   return (
     <div className={style.homePage} style={{ backgroundImage: `url(${bg})` }}>
       <Header />

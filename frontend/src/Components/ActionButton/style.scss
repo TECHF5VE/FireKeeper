@@ -6,8 +6,8 @@
   width: 60px;
   height: 60px;
   font-size: 36px;
-  background: $color-primary;
-  border-color: $color-primary;
+  background: $color-primary !important;
+  border-color: $color-primary !important;
 
   &.open {
     @media (max-width:600px) {

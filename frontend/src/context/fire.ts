@@ -9,6 +9,7 @@ export interface IFire {
   sentiment: string;
   weight: number;
   star: number;
+  createdAt: string;
 }
 
 export interface IFirePut {

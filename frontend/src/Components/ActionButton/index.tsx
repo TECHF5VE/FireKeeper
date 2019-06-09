@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as style from "./style.scss";
-import { Button, Icon } from 'antd';
+import { Button, Icon, Modal, Input } from 'antd';
 import { FireDataContext } from 'src/context/fire';
 import * as classNames from 'classnames';
 
@@ -9,13 +9,33 @@ export default function ActionButton({ handleLocationClick, locationing }: {
   locationing: boolean
 }) {
   const fire = React.useContext(FireDataContext);
+  const [visible, setVisible] = React.useState(false);
+  const [content, setContent] = React.useState("");
+  const handleAddOk = () => {
+    fire && fire.functions.addFires({
+      image: "",
+      content,
+      position: `${114 + Math.random() * 8},${30 + Math.random() * 5}`
+    })
+  }
   return (<>
     <Button shape="circle" icon="environment" className={classNames(style.locationButton, { [style.open]: fire && fire.data.listOpen })}
       onClick={handleLocationClick} loading={locationing}
     />
-    <Button type="primary" shape="circle" className={classNames(style.addButton, { [style.open]: fire && fire.data.listOpen })}>
+    <Button type="primary" shape="circle"
+      className={classNames(style.addButton, { [style.open]: fire && fire.data.listOpen })}
+      onClick={() => setVisible(true)}
+    >
       <Icon component={addIcon} />
     </Button>
+    <Modal
+      title="Add a Fire to Keep"
+      visible={visible}
+      onOk={handleAddOk}
+      onCancel={() => setVisible(false)}
+    >
+      <Input size="large" placeholder="在这输入你正所想的小火花" value={content} onChange={(e) => setContent(e.target.value)} />
+    </Modal>
   </>)
 }
 const addIcon = () => (

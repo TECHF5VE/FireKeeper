@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as style from './style.scss';
 import { Icon, Button } from 'antd';
 import { IFire, FireDataContext } from 'src/context/fire';
+import * as moment from 'moment';
+import classnames from 'classnames';
 
 export default function NewsItem({ fire, setToCenter }: { fire: IFire, setToCenter: (position: string) => void }) {
   const fireContext = React.useContext(FireDataContext);
@@ -13,8 +15,20 @@ export default function NewsItem({ fire, setToCenter }: { fire: IFire, setToCent
       fireContext && fireContext.functions.setSelectedId(fire.id)
     }}>
       <div className={style.fireStatus}>
-        <div className={style.fireStatusIcon}><Icon type="fire" /></div>
-        {fire.weight}°C {fire.sentiment}
+        <div className={classnames(style.fireStatusIcon, {
+          [style.hot1]: fire.weight <= 0.7,
+          [style.hot2]: fire.weight > 0.7 && fire.weight < 0.9,
+          [style.hot4]: fire.weight >= 1.1 && fire.weight < 1.3,
+          [style.hot5]: fire.weight >= 1.4,
+        })}><Icon type="fire" /></div>
+        <div className={classnames(style.sentimentIcon, {
+          [style.happy]: fire.sentiment === "1",
+          [style.sad]: fire.sentiment === "2",
+        })}>
+          <Icon type={fire.sentiment === "1" ? "smile" : (fire.sentiment === "2" ? "frown" : "meh")} />
+        </div>
+        <span className={style.hotStatus}>{(fire.weight * 37).toFixed(1)}°C </span>
+        <span className={style.time}>{moment(fire.createdAt, "YYYY-MM-DD HH:mm:ss").fromNow()}</span>
       </div>
       <div className={style.fireContent}>{fire.content}</div>
       <div className={style.fireActions}>
