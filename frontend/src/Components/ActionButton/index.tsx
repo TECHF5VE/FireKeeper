@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as style from "./style.scss";
-import { Button, Icon, Modal, Input } from 'antd';
+import { Button, Icon, Modal, Input, message } from 'antd';
 import { FireDataContext } from 'src/context/fire';
 import * as classNames from 'classnames';
 
@@ -11,12 +11,21 @@ export default function ActionButton({ handleLocationClick, locationing }: {
   const fire = React.useContext(FireDataContext);
   const [visible, setVisible] = React.useState(false);
   const [content, setContent] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const handleAddOk = () => {
-    fire && fire.functions.addFires({
-      image: "",
-      content,
-      position: `${114 + Math.random() * 8},${30 + Math.random() * 5}`
-    })
+    if (content) {
+      setLoading(true);
+      fire && fire.functions.addFires({
+        image: "http://lalala",
+        content,
+        position: `${114 + Math.random() * 8},${30 + Math.random() * 5}`
+      }, () => {
+        setVisible(false);
+        setLoading(false);
+      }, () => setLoading(false))
+    } else {
+      message.error("你还没有填写信息哦！");
+    }
   }
   return (<>
     <Button shape="circle" icon="environment" className={classNames(style.locationButton, { [style.open]: fire && fire.data.listOpen })}
@@ -29,12 +38,17 @@ export default function ActionButton({ handleLocationClick, locationing }: {
       <Icon component={addIcon} />
     </Button>
     <Modal
-      title="Add a Fire to Keep"
+      title="Add Your Fire to Keep"
       visible={visible}
       onOk={handleAddOk}
+      okText="生火"
+      confirmLoading={loading}
       onCancel={() => setVisible(false)}
     >
-      <Input size="large" placeholder="在这输入你正所想的小火花" value={content} onChange={(e) => setContent(e.target.value)} />
+      <div className={style.addModal}>
+        <Icon type="fire" />
+        <Input size="large" placeholder="在这输入你正所想的小火花" value={content} onChange={(e) => setContent(e.target.value)} />
+      </div>
     </Modal>
   </>)
 }

@@ -28,7 +28,7 @@ export interface IFireData {
     getFires: (position: string) => void,
     likeFire: (id: number) => void,
     dislikeFire: (id: number) => void,
-    addFires: (fire: IFirePut) => void,
+    addFires: (fire: IFirePut, onSuccess: () => void, onError: () => void) => void,
     setListOpen: React.Dispatch<React.SetStateAction<boolean>>,
     setSelectedId: React.Dispatch<React.SetStateAction<number>>
   }
