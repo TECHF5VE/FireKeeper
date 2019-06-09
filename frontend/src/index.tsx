@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
-import App from './views/App';
+const App = React.lazy(() => import('./views/App'));
 import LoadingPage from './views/LoadingPage';
 
 ReactDOM.render(

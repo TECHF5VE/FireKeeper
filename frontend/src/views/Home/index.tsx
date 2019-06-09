@@ -25,6 +25,9 @@ export default function Home() {
   };
   React.useEffect(() => {
     fire && fire.functions.getFires(`,`);
+    setInterval(() => {
+      fire && fire.functions.getFires(`,`);
+    }, 20000)
   }, []);
   const amapEvents = {
     created: mapObj => {
@@ -71,12 +74,11 @@ export default function Home() {
   }
 
   const handleLocationClick = () => {
-    setLocationing(true);
-    geolocationObj.current && geolocationObj.current.getCurrentPosition();
+    amapObj && amapObj.current.setZoomAndCenter(17, new window.AMap.LngLat("114.419895", "30.513445", true));
   };
   const setToCenter = (position: string) => {
     const [lng, lat] = position.split(',');
-    amapObj && amapObj.current.setZoomAndCenter(17, new window.AMap.LngLat(lng, lat, true));
+    amapObj && amapObj.current.setZoomAndCenter(18, new window.AMap.LngLat(lng, lat, true));
   };
   const markers =
     fire &&
