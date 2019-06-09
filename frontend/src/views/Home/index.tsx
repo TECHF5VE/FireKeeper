@@ -59,7 +59,7 @@ export default function Home() {
   };
 
   const renderMarkerLayout = (extData: { id: number; position: { latitude: string; longitude: string }; weight: number }) => {
-    return <img onClick={() => handleMarketClick(extData)} style={{ width: 10 * zoomWeight, height: 10 * zoomWeight }} src='/fire.gif' />;
+    return <img onClick={() => handleMarketClick(extData)} onTouchStart={() => handleMarketClick(extData)} style={{ width: 10 * zoomWeight, height: 10 * zoomWeight }} src='/fire.gif' />;
   };
 
   const handleMarketClick = extData => {
