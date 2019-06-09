@@ -16,7 +16,7 @@ function useFires(): IFireData {
   const [fires, setFires] = React.useState<IFire[]>([]);
   const [listOpen, setListOpen] = React.useState<boolean>(true);
   const [selectedId, setSelectedId] = React.useState<number>(-1);
-  const addFires = (fire: IFirePut) => {
+  const addFires = (fire: IFirePut, onSuccess: () => void, onError: () => void) => {
     ajax.put('/api/news', fire)
       .then((response) => {
         const { success, data } = response.data;
@@ -24,12 +24,16 @@ function useFires(): IFireData {
           const newFires = [...fires];
           newFires.push(data);
           setFires(newFires);
+          message.success("添加成功！");
+          onSuccess();
         } else {
           message.error(response.data.msg);
+          onError();
         }
       })
       .catch((error) => {
-        message.error("网络连接异常");
+        message.error("网络连接异常，请重试");
+        onError();
       });
   }
   const getFires = (position: string) => {
