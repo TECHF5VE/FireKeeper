@@ -1,23 +1,18 @@
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { NewsModule } from './news/news.module';
-import {
-  CacheModule,
-  Module,
-  CacheInterceptor,
-  ValidationPipe,
-} from '@nestjs/common';
+import { CacheModule, Module, CacheInterceptor } from '@nestjs/common';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 8889,
+      host: '120.79.56.127',
+      port: 3306,
       username: 'root',
-      password: 'root',
+      password: 'tdbqyy8=ftdH',
       database: 'fire',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       // synchronize: true,
@@ -32,10 +27,6 @@ import {
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
-    },
-    {
-      provide: APP_PIPE,
-      useClass: ValidationPipe,
     },
   ],
 })

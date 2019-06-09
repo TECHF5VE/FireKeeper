@@ -1,10 +1,20 @@
-import { Controller, Put, Body, Get, Param } from '@nestjs/common';
+import {
+  Controller,
+  Put,
+  Body,
+  Get,
+  Param,
+  UseInterceptors,
+  ClassSerializerInterceptor,
+} from '@nestjs/common';
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { Resp, success } from '../types/resp';
 import { News } from './news.entity';
 import { EventsGateway } from '../events/events.gateway';
+import moment = require('moment');
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('news')
 export class NewsController {
   constructor(
@@ -16,6 +26,8 @@ export class NewsController {
   async createNews(@Body() newsDto: CreateNewsDto): Promise<Resp<News>> {
     const res = await this.newsService.createNews(newsDto);
     if (res) {
+      res.createdAtFormat = moment(res.createdAt).format('YYYY-MM-DD HH:mm:ss');
+      res.dismissAtFormat = moment(res.dismissAt).format('YYYY-MM-DD HH:mm:ss');
       return await success(res);
     } else {
       return await fail('create fail');
@@ -26,6 +38,14 @@ export class NewsController {
   async showNews(): Promise<Resp<News[]>> {
     const res = await this.newsService.listNews();
     if (res) {
+      res.forEach(item => {
+        item.createdAtFormat = moment(item.createdAt).format(
+          'YYYY-MM-DD HH:mm:ss',
+        );
+        item.dismissAtFormat = moment(item.dismissAt).format(
+          'YYYY-MM-DD HH:mm:ss',
+        );
+      });
       return await success(res);
     } else {
       return await fail('list fail');
@@ -36,6 +56,8 @@ export class NewsController {
   async likeNews(@Param('id') id: string | number): Promise<Resp<News>> {
     const res = await this.newsService.likeNews(id);
     if (res) {
+      res.createdAtFormat = moment(res.createdAt).format('YYYY-MM-DD HH:mm:ss');
+      res.dismissAtFormat = moment(res.dismissAt).format('YYYY-MM-DD HH:mm:ss');
       return await success(res);
     } else {
       return await fail('like fail');
@@ -46,6 +68,8 @@ export class NewsController {
   async disLikeNews(@Param('id') id: string | number): Promise<Resp<News>> {
     const res = await this.newsService.disLikeNews(id);
     if (res) {
+      res.createdAtFormat = moment(res.createdAt).format('YYYY-MM-DD HH:mm:ss');
+      res.dismissAtFormat = moment(res.dismissAt).format('YYYY-MM-DD HH:mm:ss');
       return await success(res);
     } else {
       return await fail('dislike fail');
