@@ -37,7 +37,7 @@
     "react": "^16.8.3",
     "react-amap": "^1.2.8",
     "react-amap-plugin-geolocation": "^0.0.2",
-    "react-dev-utils": "^5.0.2",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^16.8.3",
     "react-router-dom": "^4.3.1",
     "react-transition-group": "^2.6.0",
